@@ -1,5 +1,5 @@
 [build]
-command = "./setup.sh && next build"
+command = "yarn run setup && next build"
 publish = ".next"
 
 [[plugins]]
