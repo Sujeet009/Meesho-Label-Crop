@@ -26,20 +26,19 @@ const apiRoute = nextConnect({
 
 apiRoute.use(upload.single('file'));
 
-apiRoute.post( async (req:any, res :any) => {
+apiRoute.post(async (req:any, res :any) => {
   try {
  
     let array = req.query.cod.split(',')
     
     const pdfFile = req.file;
-    console.log("pdfFile",pdfFile);
+
     
     
     let finalArayy= []
     const view = pdfFile.buffer;   
     const  deep = new Uint8Array(view);
     var pdfBytes = _.cloneDeep(deep);
-    console.log("pdfBytes",pdfBytes);
 
     const pdfDoc = await PDFDocument.load(pdfBytes);
     for (const ele of array) {
@@ -94,10 +93,8 @@ apiRoute.post( async (req:any, res :any) => {
       }
       
       const modifiedPdfBytes = await pdfDoc1.save();
-      // await fs.writeFileSync(`${ele}_Messho.pdf`, modifiedPdfBytes); 
       let bufferObj = Buffer.from(modifiedPdfBytes, "utf8")
       let base64String = bufferObj.toString("base64");
-      console.log("base64String",base64String);
       
       let obj : any = {
         "fileName" : ele,
